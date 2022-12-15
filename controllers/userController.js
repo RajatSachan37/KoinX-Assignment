@@ -1,11 +1,9 @@
 const fetch = require("node-fetch");
-const User = require("./../models/userModel");
+const User = require("../models/userModel");
 const Crypto = require("../models/cryptoModel");
 
 // TASK-1
 exports.fetchTransactions = async (req, res) => {
-  console.log(req.params.address);
-
   const user_transactions = await fetch(
     `https://api.etherscan.io/api?module=account&action=txlist&address=${req.params.address}&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&apikey=${process.env.API_KEY}`
   );
@@ -25,7 +23,7 @@ exports.fetchTransactions = async (req, res) => {
       console.log(storedData);
     } else {
       console.log(
-        "Transactions for this address are already present in the DB"
+        `Transactions for address: ${req.params.address} are already present in the DB`
       );
     }
 
