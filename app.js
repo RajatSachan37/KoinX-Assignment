@@ -4,9 +4,9 @@ const userRoutes = require("./routes/userRoutes");
 const dotenv = require("dotenv");
 const app = express();
 
-app.use("/api/v1/", userRoutes);
 dotenv.config({ path: "./config.env" });
 
+// Connection to MongoDB
 const DB = process.env.DB_CONNECTION_STRING;
 mongoose.set("strictQuery", true);
 mongoose
@@ -17,6 +17,9 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+// ROUTES
+app.use("/api/v1/", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("KoinX Assignment");
