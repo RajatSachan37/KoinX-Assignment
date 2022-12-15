@@ -1,8 +1,5 @@
 const express = require("express");
-// const fetch = require("node-fetch");
 const mongoose = require("mongoose");
-// const User = require("./models/userModel");
-// const Crypto = require("./models/cryptoModel");
 const userRoutes = require("./routes/userRoutes");
 const dotenv = require("dotenv");
 
@@ -11,8 +8,8 @@ const app = express();
 app.use("/api/v1/", userRoutes);
 
 dotenv.config({ path: "./config.env" });
-const DB = process.env.DB_CONNECTION_STRING;
 
+const DB = process.env.DB_CONNECTION_STRING;
 mongoose.set("strictQuery", true);
 mongoose
   .connect(DB)
