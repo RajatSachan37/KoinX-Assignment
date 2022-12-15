@@ -3,7 +3,6 @@ const express = require("express");
 const userController = require("../controllers/userController");
 
 const router = express.Router();
-// router.use(express.json()); //Body parser
 
 // TASK-1
 router

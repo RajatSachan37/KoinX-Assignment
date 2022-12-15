@@ -6,24 +6,14 @@ const Crypto = require("../models/cryptoModel");
 exports.fetchTransactions = async (req, res) => {
   console.log(req.params.address);
 
-  // TODO:  set key to env && take user_address from params
   const user_transactions = await fetch(
     `https://api.etherscan.io/api?module=account&action=txlist&address=${req.params.address}&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&apikey=G2DZB3CEQKGG7QRF1GR7HURCRQ848U6G42`
   );
 
-  //   console.log("typeofstatus", typeof user_transactions);
   const transactions = await user_transactions.json();
-
-  //   console.log("transactions", typeof transactions.status);
-  //   console.log(transactions.status);
-  //   console.log("status", transactions.status);
-  //   console.log(transactions);
-
-  //   console.log("transaction", transactions);
 
   if (transactions.status == 1) {
     console.log("status 1");
-    //   create doc if address is not found else update doc TODO: TRY DIFFERENT APPROACH
 
     const currentAddressTransactions = await User.findOne({
       address: req.params.address,
@@ -41,21 +31,10 @@ exports.fetchTransactions = async (req, res) => {
       );
     }
 
-    // const storedData = await User.findOneAndUpdate(
-    //   { address: req.params.address },
-    //   {
-    //     address: req.params.address,
-    //     transactions: transactions.result,
-    //   },
-    //   { upsert: true, new: true }
-    // );
-
-    // console.log("storedData:", storedData);
     res.status(200).json({
       status: "success",
       address: req.params.address,
       transactions: transactions.result,
-      // transactions: transactions,
     });
   } else {
     console.log("status 0");
@@ -78,12 +57,6 @@ exports.getEthereumDetails = async () => {
     { cryptoName: "etherium" },
     { currentPrice: currentEtherPrice.ethereum.inr },
     { upsert: true, new: true }
-    // { address: req.params.address },
-    // {
-    //   address: req.params.address,
-    //   transactions: transactions.result,
-    // },
-    // { upsert: true, new: true }
   );
   console.log(currentEtherPrice.ethereum.inr);
   console.log(storedEtherData);
@@ -102,12 +75,8 @@ exports.currentBalance = async (req, res) => {
     currentTransactions.transactions.forEach((transaction) => {
       if (transaction.to == currentTransactions.address) {
         currentBalance += Number(transaction.value);
-        // console.log("to");
-        // console.log("value: ", typeof Number(transaction.value));
       } else if (transaction.from == currentTransactions.address) {
         currentBalance -= Number(transaction.value);
-        // console.log("from");
-        // console.log("value:", Number(transaction.value));
       }
     });
     console.log("final balance", currentBalance);
@@ -117,8 +86,6 @@ exports.currentBalance = async (req, res) => {
       address: req.params.address,
       currentBalance: currentBalance,
       currentPriceOfEther: etherCurrentPrice.currentPrice,
-
-      //   currentTransactions,
     });
   } else {
     res.status(400).json({
