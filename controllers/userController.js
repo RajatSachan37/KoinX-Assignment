@@ -85,7 +85,6 @@ exports.currentBalance = async (req, res) => {
         currentBalance -= Number(transaction.value);
       }
     });
-    console.log("final balance", currentBalance);
 
     // send api response
     res.status(200).json({

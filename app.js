@@ -2,12 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
 
 const app = express();
-
 app.use("/api/v1/", userRoutes);
-
-dotenv.config({ path: "./config.env" });
 
 const DB = process.env.DB_CONNECTION_STRING;
 mongoose.set("strictQuery", true);
@@ -31,6 +29,6 @@ app.all("*", (req, res) => {
   });
 });
 
-app.listen(3000, process.env.IP, () => {
-  console.log("Server has started on port 3000");
+app.listen(process.env.PORT, process.env.IP, () => {
+  console.log(`Server has started on port ${process.env.PORT}`);
 });
