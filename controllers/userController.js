@@ -7,14 +7,12 @@ exports.fetchTransactions = async (req, res) => {
   console.log(req.params.address);
 
   const user_transactions = await fetch(
-    `https://api.etherscan.io/api?module=account&action=txlist&address=${req.params.address}&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&apikey=G2DZB3CEQKGG7QRF1GR7HURCRQ848U6G42`
+    `https://api.etherscan.io/api?module=account&action=txlist&address=${req.params.address}&startblock=0&endblock=99999999&page=1&offset=10&sort=asc&apikey=${process.env.API_KEY}`
   );
 
   const transactions = await user_transactions.json();
 
   if (transactions.status == 1) {
-    console.log("status 1");
-
     const currentAddressTransactions = await User.findOne({
       address: req.params.address,
     });
@@ -37,7 +35,6 @@ exports.fetchTransactions = async (req, res) => {
       transactions: transactions.result,
     });
   } else {
-    console.log("status 0");
     res.status(400).json({
       status: "fail",
       address: req.params.address,

@@ -24,6 +24,13 @@ app.get("/", (req, res) => {
   res.send("KoinX Assignment");
 });
 
+app.all("*", (req, res) => {
+  res.json({
+    status: "fail",
+    message: `Can't find ${req.originalUrl} on this server!`,
+  });
+});
+
 app.listen(3000, process.env.IP, () => {
   console.log("Server has started on port 3000");
 });
