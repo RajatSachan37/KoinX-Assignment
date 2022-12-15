@@ -10,6 +10,7 @@ router
   .get(userController.fetchTransactions);
 
 // TASK-2
+// fetch the price of Ethereum every 10 minutes and store it in the database.
 setInterval(userController.getEthereumDetails, 600000);
 
 // TASK-3
