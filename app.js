@@ -2,10 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" });
-
 const app = express();
+
 app.use("/api/v1/", userRoutes);
+dotenv.config({ path: "./config.env" });
 
 const DB = process.env.DB_CONNECTION_STRING;
 mongoose.set("strictQuery", true);
