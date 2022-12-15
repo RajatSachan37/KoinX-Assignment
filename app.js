@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.all("*", (req, res) => {
-  res.json({
+  res.status(400).json({
     status: "fail",
     message: `Can't find ${req.originalUrl} on this server!`,
   });
