@@ -1,5 +1,5 @@
 # KoinX Assignment
-Deploy link: https://koinx-assignment.up.railway.app
+Deployed link: https://koinx-assignment.up.railway.app
 
 ## Tools/Technologies Used
 - Node.js
