@@ -42,6 +42,7 @@ exports.fetchTransactions = async (req, res) => {
       status: "fail",
       address: req.params.address,
       message: transactions.message,
+      result: transactions.result,
     });
   }
 };
